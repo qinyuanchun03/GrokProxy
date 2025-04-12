@@ -1,0 +1,14 @@
+# CloudFlare Worker configuration file
+
+name = "grok-api-proxy"
+main = "grok-api-proxy.ts"
+compatibility_date = "2023-12-01"
+
+# Configure routes if needed
+# routes = [
+#   { pattern = "api-grok.yourdomain.com/*", zone_name = "yourdomain.com" }
+# ]
+
+# Add any environment variables if needed
+# [vars]
+# API_KEY = ""
