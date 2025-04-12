@@ -4,11 +4,13 @@ name = "grok-api-proxy"
 main = "grok-api-proxy.ts"
 compatibility_date = "2023-12-01"
 
-# Configure routes if needed
+# Configure routes for your custom domain
+# Uncomment and modify these lines with your actual domain
 # routes = [
 #   { pattern = "api-grok.yourdomain.com/*", zone_name = "yourdomain.com" }
 # ]
 
-# Add any environment variables if needed
+# This proxy doesn't require any environment variables as it simply forwards requests
+# If you want to add authentication or other features, you can add environment variables here
 # [vars]
 # API_KEY = ""

@@ -6,6 +6,8 @@
 
 本项目提供了一个简单的代理，将 API 请求从您的自定义域名转发到 Xai API 端点 `https://api.xai.com/v1/chat/completions`。它允许您通过自己的域名使用 Grok 的 API，而不强制执行特定的模型配置，使您能够在本地聊天软件中灵活配置模型。
 
+**重要说明**：此代理不在本地存储任何信息，它只是将请求转发到 Xai API 端点并返回响应。所有认证和授权都由 Xai API 处理，您需要在请求中包含有效的 API 密钥。
+
 ## 特点
 
 - 将请求从您的自定义域名转发到 Xai API
@@ -33,10 +35,12 @@
 2. 使用 Wrangler 部署：
    ```
    cd deploy-deno
-   wrangler publish grok-api-proxy.ts
+   wrangler deploy
    ```
 
 3. 在 CloudFlare 控制面板中配置您的自定义域名指向您的 worker。
+
+有关详细的 CloudFlare 部署指南，请参阅 [CloudFlare 部署指南](./CLOUDFLARE-DEPLOYMENT.md)。
 
 ### 本地开发
 
@@ -44,13 +48,29 @@
 
 1. 安装 Deno：https://deno.land/manual/getting_started/installation
 
-2. 运行本地开发服务器：
+2. 运行本地开发服务器（Windows 用户可以直接运行 `start-local-server.bat`）：
    ```
    cd deploy-deno
-   deno run --allow-net local-dev.ts
+   deno run --allow-net --allow-env local-dev.ts
    ```
 
 3. 服务器将在 http://localhost:8000 启动
+
+4. 使用测试脚本验证代理是否正常工作（需要 Xai API 密钥）：
+   ```
+   deno run --allow-net test-proxy.ts YOUR_XAI_API_KEY
+   ```
+
+5. 如果测试成功，您应该能看到 API 返回的响应内容
+
+### 故障排除
+
+如果您在使用代理时遇到问题，请检查以下几点：
+
+1. 确保您的 Xai API 密钥有效且未过期
+2. 检查本地开发服务器的控制台输出，查看是否有错误信息
+3. 确保您的请求格式正确，包含必要的头部和正确的 JSON 格式
+4. 如果使用自定义聊天软件，确保软件配置正确指向代理地址
 
 ## 使用方法
 
